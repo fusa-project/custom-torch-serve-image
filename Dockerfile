@@ -3,4 +3,6 @@ ARG BASE_IMAGE=pytorch/torchserve
 
 FROM ${BASE_IMAGE} AS custom-image
 
-RUN apt-get install ffmpeg
+USER root
+
+RUN apt-get install -y ffmpeg
