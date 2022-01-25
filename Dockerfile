@@ -5,6 +5,5 @@ FROM ${BASE_IMAGE} AS custom-image
 
 USER root
 
-RUN apt-get update && apt-get install -y ffmpeg python3-pip
+RUN apt-get update && apt-get install -y ffmpeg
 
-RUN pip3 install --no-cache-dir gdown
