@@ -1,0 +1,1 @@
+0 0 * * * /root/custom-torch-serve-image/download_models.sh
