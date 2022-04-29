@@ -1,0 +1,66 @@
+services:
+  torchserve:
+    image: fusa-torchserve
+    container_name: fusa-torchserve
+    command:
+      - 'torchserve --start --ncs --ts-config model-store/config.properties'
+    ports:
+      - "7070:7070"
+      - "7071:7071"
+      - "8080:8080"
+      - "8081:8081"
+    networks:
+      front-tier:
+        ipv4_address: "172.18.0.2"
+    volumes:
+      - ./model-store:/home/model-server/model-store
+
+  node:
+    image: prom/node-exporter:latest
+    container_name: nodeexporter
+    volumes:
+      - /:/host:ro,rslave
+    pid: host
+    network_mode: host
+    command:
+      - '--path.rootfs=/host'
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./prometheus/prometheus.yaml:/etc/prometheus/prometheus.yaml
+    ports:
+      - "9090:9090"
+    networks:
+      front-tier:
+        ipv4_address: "172.18.0.3"
+    depends_on:
+      - node
+      - torchserve
+
+  grafana:
+    image: grafana/grafana-oss
+    container_name: grafana
+    user: "$UID"
+    volumes:
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources/
+      - ./grafana/provisioning/dashboards/:/etc/grafana/provisioning/dashboards/
+      #- ./grafana-storage:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    networks:
+      front-tier:
+        ipv4_address: "172.18.0.4"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=pasameavault
+    depends_on:
+      - prometheus
+
+
+networks:
+  front-tier:
+    ipam:
+      driver: default
+      config:
+        - subnet: "172.18.0.0/24"
