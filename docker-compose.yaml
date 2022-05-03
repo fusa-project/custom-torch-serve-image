@@ -3,7 +3,7 @@ services:
     image: fusa-torchserve
     container_name: fusa-torchserve
     command:
-      - 'torchserve --start --ncs --ts-config model-store/config.properties'
+      - 'torchserve --start --ncs --ts-config config.properties'
     ports:
       - "7070:7070"
       - "7071:7071"
