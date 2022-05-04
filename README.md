@@ -6,4 +6,4 @@ Build the custom torch-serve docker image with
 
 Test the services with
 
-    docker-compose up
+    DOCKER_USER=$(id -u) docker-compose up

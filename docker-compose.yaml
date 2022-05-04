@@ -52,7 +52,7 @@ services:
   grafana:
     image: grafana/grafana-oss
     container_name: grafana
-    user: "$UID"
+    user: "${DOCKER_USER}"
     volumes:
       - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources/
       - ./grafana/provisioning/dashboards/:/etc/grafana/provisioning/dashboards/
