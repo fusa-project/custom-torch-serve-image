@@ -82,7 +82,32 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "__systemRef": "hideSeriesFrom",
+            "matcher": {
+              "id": "byNames",
+              "options": {
+                "mode": "exclude",
+                "names": [
+                  "{instance=\"node-exporter:9100\", job=\"node\"}"
+                ],
+                "prefix": "All except:",
+                "readOnly": true
+              }
+            },
+            "properties": [
+              {
+                "id": "custom.hideFrom",
+                "value": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
@@ -108,7 +133,10 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
+          "editorMode": "code",
           "expr": "100*node_memory_SwapFree_bytes/node_memory_SwapTotal_bytes",
+          "legendFormat": "Swap",
+          "range": true,
           "refId": "A"
         },
         {
@@ -116,8 +144,11 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
+          "editorMode": "code",
           "expr": "100*node_memory_MemFree_bytes/node_memory_MemTotal_bytes",
           "hide": false,
+          "legendFormat": "Ram",
+          "range": true,
           "refId": "B"
         }
       ],
@@ -225,7 +256,7 @@
   "timezone": "",
   "title": "FUSA",
   "uid": "ZzwVc3wnk",
-  "version": 2,
+  "version": 4,
   "weekStart": ""
 }
 
