@@ -11,6 +11,8 @@ RUN pip3 install --no-cache --upgrade pip==21.3.1 -i https://pypi.org/simple/
 COPY requirements.txt ./
 RUN pip3 install -r requirements.txt
 
+COPY config.properties config.properties
+
 RUN git clone https://github.com/fusa-project/fusa-net-utils.git
 
 RUN cd fusa-net-utils && pip3 install -e .
