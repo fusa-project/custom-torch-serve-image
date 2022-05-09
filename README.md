@@ -2,8 +2,8 @@
 
 Build the custom torch-serve docker image with
 
-    docker build . -t fusa-torchserve"
+    docker build . -t "fusa-torchserve"
 
 Test the services with
 
-    DOCKER_USER=$(id -u) docker-compose up
+    DOCKER_USER=$(id -u) docker-compose up -d
